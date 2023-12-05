@@ -20,7 +20,7 @@ D = \033[0m#      DEFAULT
 A = \007#         BEEP
 
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=ochilnik
+REGESTRY=ochilnik
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 #TARGETOS=linux
 #TARGETARCH=amd64
