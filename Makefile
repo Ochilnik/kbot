@@ -28,6 +28,9 @@ VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HE
 format:
 	gofmt -s -w ./
 
+gofmt:
+	gofmt -s -w ./
+
 get:
 	go get
 
@@ -51,7 +54,7 @@ windows: format get
 	CGO_ENABLED=0 GOOS=windows GOARCH=$(detected_arch) go build -v -o kbot -ldflags "-X="github.com/ochilnik/kbot/cmd.appVersion=${VERSION}
 	docker build --build-arg name=windows -t ${REGESTRY}/${APP}:${VERSION}-windows-$(detected_arch) .
 
-darwin:format get
+darwin: format get
 	@printf "$GTarget OS/ARCH: $Rdarwin/$(detected_arch)$D\n"
 	CGO_ENABLED=0 GOOS=darwin GOARCH=$(detected_arch) go build -v -o kbot -ldflags "-X="github.com/ochilnik/kbot/cmd.appVersion=${VERSION}
 	docker build --build-arg name=darwin -t ${REGESTRY}/${APP}:${VERSION}-darwin-$(detected_arch) .
@@ -62,7 +65,7 @@ arm: format get
 	docker build --build-arg name=arm -t ${REGESTRY}/${APP}:${VERSION}-$(detected_OS)-arm .
 
 
-image: build
+image:
 	docker build . -t ${REGESTRY}/${APP}:${VERSION}-$(detected_arch)
 
 push:
